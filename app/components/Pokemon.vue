@@ -1,17 +1,45 @@
 <template>
   <div>
-    <div v-if="data && data.results">
-      <div v-for="currentPokemon in data.results" :key="currentPokemon.name">
+
+    <div class="background" v-if="data && data.results">
+      
+      <Card v-for="currentPokemon in data.results" :key="currentPokemon.name">
+
         <p>{{ currentPokemon.name }}</p>
+        <p>Weight:{{ currentPokemon.weight }}</p>
+
         <img
           :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonId(currentPokemon.url)}.png`"
           :alt="currentPokemon.name"
         >
-      </div>
+      </Card>
+
     </div>
     <div v-else>Carregando...</div>
+
   </div>
+  
+
 </template>
+
+<style>
+img {
+  max-height: 200px;
+  max-width: 200px;
+}
+
+.background {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f6bd20;
+}
+
+
+
+
+
+</style>
 
 <script setup>
 const { data, error, pending } = await useFetch('https://pokeapi.co/api/v2/pokemon?limit=100')
