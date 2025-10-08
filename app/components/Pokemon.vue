@@ -1,25 +1,19 @@
 <template>
   <div>
-
-    <div class="background" v-if="data && data.results">
-      
-      <Card v-for="currentPokemon in data.results" :key="currentPokemon.name">
-
-        <p>{{ currentPokemon.name }}</p>
-        <p>Weight:{{ currentPokemon.weight }}</p>
+    <div class="background" v-if="pokemons && pokemons.length">
+      <Card v-for="poke in pokemons" :key="poke.id">
+        <p>{{ poke.name }}</p>
+        <p>Weight: {{ poke.weight }}</p>
 
         <img
-          :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonId(currentPokemon.url)}.png`"
-          :alt="currentPokemon.name"
+          :src="poke.image"
+          :alt="poke.name"
         >
       </Card>
-
     </div>
+
     <div v-else>Carregando...</div>
-
   </div>
-  
-
 </template>
 
 <style>
@@ -34,21 +28,33 @@ img {
   justify-content: space-between;
   background-color: #f6bd20;
 }
-
-
-
-
-
 </style>
 
 <script setup>
-const { data, error, pending } = await useFetch('https://pokeapi.co/api/v2/pokemon?limit=100')
+// Usa useAsyncData com cache automático do Nuxt
+const { data: pokemons, error, pending } = await useAsyncData('pokemons', async () => {
+  //Busca a lista principal
+  const response = await $fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
 
-function getPokemonId(url) {
-  //Extrai o id do pokemon para usar na url da imagem
-  return url.split('/').filter(Boolean).pop()
-}
+  //Busca os detalhes (peso, imagem etc.)
+  const results = await Promise.all(
+    response.results.map(async (poke) => {
+      const detail = await $fetch(poke.url)
+      const id = poke.url.split('/').filter(Boolean).pop()
 
+      return {
+        id,
+        name: poke.name,
+        weight: detail.weight,
+        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+      }
+    })
+  )
+
+  return results
+})
+
+//Trata erros se houver
 if (error.value) {
   console.error('Erro ao buscar Pokémon:', error.value)
 }
