@@ -3,7 +3,7 @@
     <div class="background" v-if="pokemons && pokemons.length">
       <Card v-for="poke in pokemons" :key="poke.id">
         <p>{{ poke.name }}</p>
-        <p>Weight: {{ poke.weight }}</p>
+        <p>Peso: {{ poke.weight }}kg</p>
 
         <img
           :src="poke.image"
@@ -45,7 +45,7 @@ const { data: pokemons, error, pending } = await useAsyncData('pokemons', async 
       return {
         id,
         name: poke.name,
-        weight: detail.weight,
+        weight: detail.weight/10,
         image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
       }
     })
