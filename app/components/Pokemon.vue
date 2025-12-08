@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="background" v-if="pokemons && pokemons.length">
-      <Card v-for="poke in pokemons" :key="poke.id">
+      <Card v-for="poke in pokemons" :key="poke.id"
+      :type="poke.primaryType"
+      >
         <p>{{ poke.name }}</p>
         <p>Peso: {{ poke.weight }}kg</p>
 
@@ -26,7 +28,6 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #f6bd20;
 }
 </style>
 
@@ -46,7 +47,8 @@ const { data: pokemons, error, pending } = await useAsyncData('pokemons', async 
         id,
         name: poke.name,
         weight: detail.weight/10,
-        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`
+        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
+        primaryType: detail.types[0]?.type?.name || 'normal'
       }
     })
   )
