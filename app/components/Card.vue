@@ -1,18 +1,32 @@
 <template>
     <div
         :class="cardClasses"
-        class="rounded-lg flex gap-4 flex-row p-4 w-full max-w-[294px] gap-4">
+        class="rounded-lg flex gap-4 flex-row p-4 w-full max-w-[294px]"
+        @click="toggleInfo">
+
         <slot></slot>
+        <div class="poke-detalhes" v-show="aberto">
+            <hr class="my-3 border-white/30" />
+            <slot name="expanded"></slot>
+        </div>
     </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   type: {
     type: String,
     default: 'normal'
   }
 })
+
+const aberto = ref(false)
+
+function toggleInfo() {
+  aberto.value = !aberto.value
+}
 
 // Map Pokemon types to Tailwind classes
 const typeColors = {
