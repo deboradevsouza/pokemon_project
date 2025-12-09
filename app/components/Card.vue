@@ -1,11 +1,22 @@
 <template>
     <div
         :class="cardClasses"
-        class="rounded-lg flex gap-4 flex-row p-4 w-full max-w-[294px]"
+        class="rounded-lg flex flex-col p-4 w-full max-w-[294px] cursor-pointer"
         @click="toggleInfo">
-
+        
+        <!-- This is the slot content that's always visible -->
         <slot></slot>
-        <div class="poke-detalhes" v-show="aberto">
+        
+        <!-- Expand icon - positioned at the bottom -->
+        <div class="flex justify-center mt-3">
+    <i 
+        class="bi bi-chevron-down transition-transform duration-300"
+        :class="{ 'rotate-180': aberto }"
+    ></i>
+</div>
+        
+        <!-- Expanded content -->
+        <div class="gato-detalhes" v-show="aberto">
             <hr class="my-3 border-white/30" />
             <slot name="expanded"></slot>
         </div>
@@ -13,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   type: {
@@ -55,3 +66,9 @@ const cardClasses = computed(() => {
   return typeColors[props.type] || typeColors.normal
 })
 </script>
+
+<style scoped>
+.rotate-180 {
+  transform: rotate(180deg);
+}
+</style>
