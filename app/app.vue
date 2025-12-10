@@ -1,5 +1,5 @@
 <template>
-  <main class="flex justify-center bg-[#77BEF0]">
-    <Pokemon />
-  </main>
+  <NuxtLink to="/pokemon">Lista de Pokémons</NuxtLink>
+  <NuxtPage/>
+  
 </template>

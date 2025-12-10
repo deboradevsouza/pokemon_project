@@ -11,7 +11,7 @@
           
           <div class="nome-pokemon-info">
             <h3 class="nome-poke capitalize text-center">
-              #0{{ poke.id }}</h3>
+              # 0{{ poke.id }}</h3>
             <h3 class="nome-poke capitalize text-center">{{ poke.name }}</h3>
           </div>
           <div>
