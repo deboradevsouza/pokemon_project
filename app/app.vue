@@ -1,5 +1,5 @@
 <template>
-  <main class="flex justify-center bg-[#FFF57E] gap-8">
+  <main class="flex justify-center bg-[#77BEF0]">
     <Pokemon />
   </main>
 </template>

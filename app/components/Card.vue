@@ -1,22 +1,26 @@
 <template>
     <div
-        :class="cardClasses"
-        class="rounded-lg flex flex-col p-4 w-full max-w-[294px] cursor-pointer"
+        class="rounded-lg flex flex-col p-4 w-full max-w-[294px] cursor-pointer bg-[#EEEEEE] border-8 border-[#FFCC03] shadow-xl outline outline-2 outline-black outline-offset-[-8px] transition-all duration-300"
         @click="toggleInfo">
         
-        <!-- This is the slot content that's always visible -->
-        <slot></slot>
-        
-        <!-- Expand icon - positioned at the bottom -->
-        <div class="flex justify-center mt-3">
-    <i 
-        class="bi bi-chevron-down transition-transform duration-300"
-        :class="{ 'rotate-180': aberto }"
-    ></i>
-</div>
+        <!-- Top row with content and icon -->
+        <div class="flex flex-row justify-between items-center">
+            <!-- This is the slot content that's always visible -->
+            <div class="flex-1">
+                <slot></slot>
+            </div>
+            
+            <!-- Expand icon -->
+            <div class="flex justify-center ml-2">
+                <i 
+                    class="bi bi-chevron-down transition-transform duration-300"
+                    :class="{ 'rotate-180': aberto }"
+                ></i>
+            </div>
+        </div>
         
         <!-- Expanded content -->
-        <div class="gato-detalhes" v-show="aberto">
+        <div class="poke-detalhes w-full" v-show="aberto">
             <hr class="my-3 border-white/30" />
             <slot name="expanded"></slot>
         </div>
@@ -39,28 +43,6 @@ function toggleInfo() {
   aberto.value = !aberto.value
 }
 
-// Map Pokemon types to Tailwind classes
-const typeColors = {
-  normal: 'bg-gray-200',
-  fire: 'bg-red-500 text-white',
-  water: 'bg-blue-500 text-white',
-  grass: 'bg-green-500 text-white',
-  electric: 'bg-yellow-400',
-  ice: 'bg-cyan-200',
-  fighting: 'bg-red-700 text-white',
-  poison: 'bg-purple-500 text-white',
-  ground: 'bg-yellow-700 text-white',
-  flying: 'bg-indigo-300',
-  psychic: 'bg-pink-500 text-white',
-  bug: 'bg-lime-500',
-  rock: 'bg-yellow-800 text-white',
-  ghost: 'bg-purple-800 text-white',
-  dark: 'bg-gray-800 text-white',
-  dragon: 'bg-indigo-700 text-white',
-  steel: 'bg-gray-400',
-  fairy: 'bg-pink-300'
-}
-
 // Dynamic class based on type
 const cardClasses = computed(() => {
   return typeColors[props.type] || typeColors.normal
@@ -68,6 +50,10 @@ const cardClasses = computed(() => {
 </script>
 
 <style scoped>
+.poke-detalhes {
+  display: flex;
+}
+
 .rotate-180 {
   transform: rotate(180deg);
 }

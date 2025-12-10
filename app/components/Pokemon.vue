@@ -8,14 +8,18 @@
       >
         <!-- Main content (always visible) -->
         <div class="ficha-pokemon">
-          <img
-            :src="poke.image"
-            :alt="poke.name"
-            class="max-h-32 mx-auto"
-          />
           
           <div class="nome-pokemon-info">
-            <h3 class="text-lg font-bold capitalize text-center">{{ poke.name }}</h3>
+            <h3 class="nome-poke capitalize text-center">
+              #0{{ poke.id }}</h3>
+            <h3 class="nome-poke capitalize text-center">{{ poke.name }}</h3>
+          </div>
+          <div>
+            <img
+              :src="poke.image"
+              :alt="poke.name"
+              class="max-h-32 mx-auto"
+            />
           </div>
         </div>
 
@@ -23,15 +27,6 @@
         <template #expanded>
           <div class="space-y-2">
             <p><span class="font-medium">Peso:</span> {{ poke.weight }} kg</p>
-            <p><span class="font-medium">ID:</span> {{ poke.id }}</p>
-            <p><span class="font-medium">Tipo:</span> {{ poke.primaryType }}</p>
-            
-            <div v-if="poke.baseExperience">
-              <p><span class="font-medium">Experiência base:</span> {{ poke.baseExperience }}</p>
-            </div>
-            <div v-if="poke.height">
-              <p><span class="font-medium">Altura:</span> {{ poke.height }} m</p>
-            </div>
           </div>
         </template>
       </Card>
@@ -75,29 +70,39 @@ if (error.value) {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.nome-poke {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
 img {
-  max-height: 200px;
-  max-width: 200px;
+  max-height: 100px;
+  max-width: 100px;
 }
 
 .background {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
+  padding: 1rem;
+  gap: 0.5rem;
 }
 
 .ficha-pokemon {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  gap: 0.5rem;
 }
 
 .nome-pokemon-info {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
   width: 100%;
 }
 </style>
