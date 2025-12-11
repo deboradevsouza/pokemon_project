@@ -1,39 +1,105 @@
 <template>
-  <main class="min-h-screen bg-[#77BEF0]">
-    <div class="flex flex-col min-h-screen items-center p-4">
-      <!-- Make image responsive but with max size -->
+  <div class="page-container">
+  <main class="flex flex-col bg-[#77BEF]">
+    <div class="flex flex-col items-center justify-center p-4">
       <img 
         src="../assets/titulo-pokelift.png" 
         alt="Titulo PokeLift"
-        class="w-[60%] max-w-4xl md:max-w-5xl lg:max-w-6xl"
+        class="w-[50%] max-w-2xl md:max-w-md lg:max-w-lg mb-4"
       />
 
-      <h2 class="font-tilt-warp">Gotta lift 'em all!</h2>
+      <!-- SVG container -->
+      <div class="svg-container">
+        <svg viewBox="0 0 500 100">
+          <!-- This path starts and ends with equal margins -->
+          <path id="curve" d="M50,50 Q250,0 450,50" fill="transparent" />
+          <text class="curved-text">
+            <textPath href="#curve" startOffset="50%" text-anchor="middle">
+              Gotta lift 'em all!
+            </textPath>
+          </text>
+        </svg>
+      </div>
+      <img 
+      src="../assets/Pokelift.png" alt="pokelift-logo"
+      >
+
     </div>
   </main>
+      <footer>
+      <h3 class="footer-text">
+        2025| Desenvolvido por 
+        <strong><a 
+        href="https://github.com/deboradevsouza"
+        target="_blank"
+        rel="noopener noreferrer"
+        >@deboradevsouza</a></strong> inspirado no projeto do 
+        <strong><a 
+        href="https://www.instagram.com/pikachudamaromba/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >@pikachudamaromba</a></strong>
+      </h3>
+    </footer>
+</div>
 </template>
-
-<script setup>
-
-</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-h2 {
-    font-family: "Tilt Warp", sans-serif;
-    font-size: 20px;
-    color: white;
-    text-shadow: 
-        3px 3px 0 #000,
-    -3px 3px 0 #000,
-    3px -3px 0 #000,
-    -3px -3px 0 #000,
-    0 3px 0 #000,
-    0 -3px 0 #000,
-    3px 0 0 #000,
-    -3px 0 0 #000;
+.page-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.5rem;
 }
 
+.link-pokemons {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem;
+}
 
+.link-text {
+  font-family: "Tilt Warp", sans-serif;
+  font-weight: 400;
+}
+
+footer {
+  display: flex;
+  margin-top: auto;
+  background-color: #FFCC03;
+  padding: 1rem;
+  border-top: 3px solid black;
+}
+
+.footer-text {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* Center the SVG container */
+.svg-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.curved-text {
+    font-family: "Tilt Warp", sans-serif;
+    font-size: 25px;
+    letter-spacing: 0.4rem;
+    fill: white;
+    text-shadow: 
+    3px 3px 0 #386ABB,
+    -3px 3px 0 #386ABB,
+    3px -3px 0 #386ABB,
+    -3px -3px 0 #386ABB,
+    0 3px 0 #386ABB,
+    0 -3px 0 #386ABB,
+    3px 0 0 #386ABB,
+    -3px 0 0 #386ABB;
+}
 </style>

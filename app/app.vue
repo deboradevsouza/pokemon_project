@@ -1,5 +1,10 @@
 <template>
-  <NuxtLink to="/pokemon">Lista de Pokémons</NuxtLink>
-  <NuxtPage/>
-  
+  <header>
+    <nav>
+
+    </nav>
+  </header>
+  <main class="flex min-h-screen bg-[#77BEF0]">
+    <NuxtPage/>
+  </main>
 </template>
