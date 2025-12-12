@@ -1,14 +1,16 @@
 <template>
-  <div class="page-container">
-  <main class="flex flex-col bg-[#77BEF]">
-    <div class="flex flex-col items-center justify-center p-4">
-      <img 
-        src="../assets/titulo-pokelift.png" 
-        alt="Titulo PokeLift"
-        class="w-[50%] max-w-2xl md:max-w-md lg:max-w-lg mb-4"
-      />
+  <div
+  class="page-all" 
+  >
+  <main>
+    <div class="page-container">
+        <img 
+          src="../assets/titulo-pokelift.png"
+          alt="Titulo PokeLift"
+          class="w-[50%] max-w-2xl md:max-w-md lg:max-w-lg mb-4"
+        />
 
-      <!-- SVG container -->
+        <!-- SVG container -->
       <div class="svg-container">
         <svg viewBox="0 0 500 100">
           <!-- This path starts and ends with equal margins -->
@@ -20,15 +22,30 @@
           </text>
         </svg>
       </div>
+
       <img 
+      class="pokelift-logo"
       src="../assets/Pokelift.png" alt="pokelift-logo"
       >
-
     </div>
   </main>
-      <footer>
+
+    <div
+        class="link-pokemons"
+        >
+          <NuxtLink 
+            to="/pokemon"
+            class="link-text"
+            >Ver Pokémons
+            <i
+            class="bi bi-arrow-right-circle"
+            ></i>
+          </NuxtLink>
+    </div>
+
+  <footer>
       <h3 class="footer-text">
-        2025| Desenvolvido por 
+        2025 | Desenvolvido por 
         <strong><a 
         href="https://github.com/deboradevsouza"
         target="_blank"
@@ -41,23 +58,48 @@
         >@pikachudamaromba</a></strong>
       </h3>
     </footer>
-</div>
+    </div>
 </template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+.page-all {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  gap: 2rem;
+  background-color: #77BEF0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
 .page-container {
   display: flex;
   flex-direction: column;
-  margin-top: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+.pokelift-logo {
+  display: flex;
+  min-height: 40vh;
+  min-width: 300px;
 }
 
 .link-pokemons {
   display: flex;
   justify-content: flex-end;
-  padding: 1.5rem;
+  margin-right: 2rem;
 }
 
 .link-text {
@@ -67,7 +109,8 @@
 
 footer {
   display: flex;
-  margin-top: auto;
+  justify-content: center;
+  align-items: center;
   background-color: #FFCC03;
   padding: 1rem;
   border-top: 3px solid black;

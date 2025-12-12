@@ -1,6 +1,29 @@
 <template>
-  <div>
-    <div class="background" v-if="pokemons && pokemons.length">
+  <header 
+  class="flex flex-row justify-between items-center bg-[#FFCC03] p-4 gap-4"
+  >
+    <div class="pag-inicial">
+      <NuxtLink
+      to="/"
+      >Início</NuxtLink>
+    </div>
+    <div class="buscar-pokemon flex flex-row items-center gap-2">
+      <input 
+      class="rounded-full p-2 flex items-center"
+      type="text"
+      placeholder="Buscar Pokémon">
+      <button>
+        <i
+        class="bi bi-search">
+        </i>
+      </button>
+    </div>
+  </header>
+
+  <div class="background">
+    <div 
+    class="flex flex-col gap-2"
+    v-if="pokemons && pokemons.length">
       <Card 
         v-for="poke in pokemons" 
         :key="poke.id"
@@ -72,6 +95,21 @@ if (error.value) {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+header {
+  border-bottom: 3px solid black;
+}
+
+.pag-inicial {
+  font-family: "Tilt Warp", sans-serif;
+  font-weight: 400;
+}
+
+.buscar-pokemon {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
 .nome-poke {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
@@ -86,6 +124,8 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  background-color: #77BEF0;
   padding: 1rem;
   gap: 0.5rem;
 }
