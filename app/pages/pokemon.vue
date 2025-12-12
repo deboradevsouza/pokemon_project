@@ -9,10 +9,14 @@
     </div>
     <div class="buscar-pokemon flex flex-row items-center gap-2">
       <input 
-      class="rounded-full p-2 flex items-center"
       type="text"
-      placeholder="Buscar Pokémon">
-      <button>
+      v-model="searchQuery"
+      placeholder="Buscar Pokémon"
+      class="rounded-full p-2 flex items-center border-2 border-solid border-black"
+      @keyup.enter="searchPokemon"
+      />
+      <button 
+      @click="searchPokemon">
         <i
         class="bi bi-search">
         </i>
@@ -23,9 +27,9 @@
   <div class="background">
     <div 
     class="flex flex-col gap-2"
-    v-if="pokemons && pokemons.length">
+    v-if="filteredPokemons && filteredPokemons.length">
       <Card 
-        v-for="poke in pokemons" 
+        v-for="poke in filteredPokemons" 
         :key="poke.id"
         :type="poke.primaryType"
       >
@@ -34,7 +38,7 @@
           
           <div class="nome-pokemon-info">
             <h3 class="nome-poke capitalize text-center">
-              # 0{{ poke.id }}</h3>
+              # {{ poke.id.toString().padStart(3, '0') }}</h3>
             <h3 class="nome-poke capitalize text-center">{{ poke.name }}</h3>
           </div>
           <div>
@@ -55,11 +59,20 @@
       </Card>
     </div>
 
+    <div v-else-if="pokemons && pokemons.length === 0">
+      Nenhum Pokémon encontrado para "{{ searchQuery }}"
+    </div>
+
     <div v-else>Carregando...</div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
+
+// Search query ref
+const searchQuery = ref('')
+
 // Usa useAsyncData com cache automático do Nuxt
 const { data: pokemons, error, pending } = await useAsyncData('pokemons', async () => {
   //Busca a lista principal
@@ -72,7 +85,7 @@ const { data: pokemons, error, pending } = await useAsyncData('pokemons', async 
       const id = poke.url.split('/').filter(Boolean).pop()
 
       return {
-        id,
+        id: parseInt(id),
         name: poke.name,
         weight: (detail.weight / 10).toFixed(1),
         image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
@@ -86,6 +99,35 @@ const { data: pokemons, error, pending } = await useAsyncData('pokemons', async 
   return results
 })
 
+// Computed property for filtered pokemons
+const filteredPokemons = computed(() => {
+  if (!pokemons.value) return []
+  
+  const query = searchQuery.value.toLowerCase().trim()
+  
+  if (!query) return pokemons.value
+  
+  return pokemons.value.filter(pokemon => {
+    // Search by name
+    if (pokemon.name.toLowerCase().includes(query)) return true
+    
+    // Search by ID (converted to string)
+    if (pokemon.id.toString().includes(query)) return true
+    
+    // Search by type
+    if (pokemon.primaryType.toLowerCase().includes(query)) return true
+    
+    return false
+  })
+})
+
+// Search function for button/enter key
+const searchPokemon = () => {
+  // The computed property already handles the filtering
+  // This function just ensures reactivity
+  console.log('Searching for:', searchQuery.value)
+}
+
 //Trata erros se houver
 if (error.value) {
   console.error('Erro ao buscar Pokémon:', error.value)
@@ -93,6 +135,7 @@ if (error.value) {
 </script>
 
 <style>
+/* Your existing styles remain the same */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 header {
@@ -126,6 +169,7 @@ img {
   justify-content: space-between;
   align-items: center;
   background-color: #77BEF0;
+  height: 100vh;
   padding: 1rem;
   gap: 0.5rem;
 }
