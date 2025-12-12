@@ -76,7 +76,7 @@ const searchQuery = ref('')
 // Usa useAsyncData com cache automático do Nuxt
 const { data: pokemons, error, pending } = await useAsyncData('pokemons', async () => {
   //Busca a lista principal
-  const response = await $fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
+  const response = await $fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
 
   //Busca os detalhes (peso, imagem etc.)
   const results = await Promise.all(
@@ -169,7 +169,7 @@ img {
   justify-content: space-between;
   align-items: center;
   background-color: #77BEF0;
-  height: 100vh;
+  min-height: 100vh;
   padding: 1rem;
   gap: 0.5rem;
 }
